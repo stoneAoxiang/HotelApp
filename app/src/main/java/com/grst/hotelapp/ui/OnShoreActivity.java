@@ -3,6 +3,8 @@ package com.grst.hotelapp.ui;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
@@ -10,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.baidu.ocr.ui.camera.CameraActivity;
@@ -26,6 +29,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import butterknife.ButterKnife;
+import butterknife.InjectView;
 import butterknife.OnClick;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
@@ -40,6 +44,10 @@ public class OnShoreActivity extends BaseActivity {
 	
 	EditText et_number,et_code;
 	private static final int REQUEST_CODE_IDCARD = 110;
+
+
+	@InjectView(R.id.pic_photo)
+	ImageView picPhoto;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -77,9 +85,12 @@ public class OnShoreActivity extends BaseActivity {
 			Bundle bundle = data.getExtras();
 
 			String message = bundle.getString("message");
+			String outputFile = bundle.getString("outputFile");
+			Bitmap bitmap = BitmapFactory.decodeFile(outputFile);
 
+			picPhoto.setImageBitmap(bitmap);
 			AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-			alertDialog.setTitle("")
+			alertDialog.setTitle(outputFile)
 					.setMessage(message)
 					.setPositiveButton("确定", null)
 					.show();

@@ -40,6 +40,7 @@ public class IDCardActivity extends AppCompatActivity {
     private static final int REQUEST_CODE_CAMERA = 102;
     private TextView infoTextView;
     private AlertDialog.Builder alertDialog;
+    private String outputFile;
 
     private boolean checkGalleryPermission() {
         int ret = ActivityCompat.checkSelfPermission(IDCardActivity.this, Manifest.permission
@@ -90,6 +91,8 @@ public class IDCardActivity extends AppCompatActivity {
                 Intent intent = new Intent(IDCardActivity.this, CameraActivity.class);
                 intent.putExtra(CameraActivity.KEY_OUTPUT_FILE_PATH,
                         FileUtil.getSaveFile(getApplication()).getAbsolutePath());
+
+                outputFile = FileUtil.getSaveFile(getApplication()).getAbsolutePath();
                 intent.putExtra(CameraActivity.KEY_CONTENT_TYPE, CameraActivity.CONTENT_TYPE_ID_CARD_FRONT);
                 startActivityForResult(intent, REQUEST_CODE_CAMERA);
             }
@@ -148,6 +151,7 @@ public class IDCardActivity extends AppCompatActivity {
 
         Intent intent = new Intent();
         intent.putExtra("message", message);
+        intent.putExtra("outputFile", outputFile);
 
         this.setResult(RESULT_OK, intent);
         this.finish();
