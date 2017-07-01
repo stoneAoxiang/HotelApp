@@ -1,19 +1,13 @@
 package com.grst.hotelapp.module;
 
-public class RoomType {
+import cn.bmob.v3.BmobObject;
 
-	private String id;
+public class RoomType  extends BmobObject {
+
 	private String name;
 	private float price;
 	private float discountPrice;
 
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
 
 	public String getName() {
 		return name;

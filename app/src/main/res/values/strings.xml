@@ -30,6 +30,8 @@
 
     <string name="onshore">境内旅客</string>
     <string name="offshore">境外旅客</string>
+    <string name="room_type">房间类型</string>
+    <string name="room_num">房间号</string>
 
     <string-array name="bmob_user_list">
         <item>1. 注册用户</item>

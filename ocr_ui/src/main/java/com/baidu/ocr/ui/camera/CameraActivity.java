@@ -36,6 +36,8 @@ import android.widget.Toast;
 
 public class CameraActivity extends Activity {
 
+    private String TAG = CameraActivity.class.getCanonicalName();
+
     public static final String KEY_OUTPUT_FILE_PATH = "outputFilePath";
     public static final String KEY_CONTENT_TYPE = "contentType";
 
@@ -122,9 +124,12 @@ public class CameraActivity extends Activity {
 
     private void initParams() {
         String outputPath = getIntent().getStringExtra(KEY_OUTPUT_FILE_PATH);
+
         if (outputPath != null) {
             outputFile = new File(outputPath);
         }
+
+        Log.i(TAG, "图片保存路径: "+ outputFile);
 
         contentType = getIntent().getStringExtra(KEY_CONTENT_TYPE);
         if (contentType == null) {
@@ -203,7 +208,7 @@ public class CameraActivity extends Activity {
                     return;
                 }
             }
-
+            Log.i(TAG, "albumButtonOnClickListener 路径: "+ outputFile);
             Intent intent = new Intent(Intent.ACTION_PICK);
             intent.setType("image/*");
             startActivityForResult(intent, REQUEST_CODE_PICK_IMAGE);
@@ -243,7 +248,7 @@ public class CameraActivity extends Activity {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-
+                    Log.i(TAG, "autoTakePictureCallback 路径: "+ outputFile);
                     Intent intent = new Intent();
                     intent.putExtra(CameraActivity.KEY_CONTENT_TYPE, contentType);
                     setResult(Activity.RESULT_OK, intent);
@@ -282,6 +287,8 @@ public class CameraActivity extends Activity {
         @Override
         public void onClick(View v) {
             // 释放 cropView中的bitmap;
+
+            Log.i(TAG, "释放 cropView中的bitmap: ");
             cropView.setFilePath(null);
             showTakePicture();
         }
@@ -304,6 +311,7 @@ public class CameraActivity extends Activity {
                     break;
             }
             Bitmap cropped = cropView.crop(rect);
+            Log.i(TAG, "cropConfirmButtonListener: ");
             displayImageView.setImageBitmap(cropped);
             cropAndConfirm();
         }
@@ -380,7 +388,6 @@ public class CameraActivity extends Activity {
             cursor.close();
         }
 
-        Log.i("照相url", result);
         return result;
     }
 

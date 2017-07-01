@@ -5,27 +5,39 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.PopupWindow;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.baidu.ocr.ui.camera.CameraActivity;
 import com.grst.hotelapp.R;
+import com.grst.hotelapp.adapter.PopAdapter;
 import com.grst.hotelapp.module.BankCard;
 import com.grst.hotelapp.module.MyUser;
 import com.grst.hotelapp.module.Person;
+import com.grst.hotelapp.module.RoomInfo;
+import com.grst.hotelapp.module.RoomType;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -48,6 +60,44 @@ public class OnShoreActivity extends BaseActivity {
 
 	@InjectView(R.id.pic_photo)
 	ImageView picPhoto;
+
+	@InjectView(R.id.room_type)
+	EditText roomTypeTV;
+
+	@InjectView(R.id.room_num)
+	EditText roomNumTV;
+
+	@InjectView(R.id.idCard)
+	EditText idCard;
+
+	@InjectView(R.id.name)
+	EditText name;
+
+	@InjectView(R.id.sex)
+	EditText sex;
+
+	@InjectView(R.id.birthday)
+	EditText birthday;
+
+	@InjectView(R.id.address)
+	EditText address;
+
+	@InjectView(R.id.nation)
+	EditText nation;
+
+	@InjectView(R.id.isDisabled)
+	EditText isDisabled;
+
+	@InjectView(R.id.linkPhone)
+	EditText linkPhone;
+
+
+	private PopupWindow popupWindow;
+	private PopAdapter popAdapter;
+
+	private String roomTypeId;
+
+	private String currentView;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -84,18 +134,194 @@ public class OnShoreActivity extends BaseActivity {
 		if (requestCode == REQUEST_CODE_IDCARD && resultCode == Activity.RESULT_OK) {
 			Bundle bundle = data.getExtras();
 
-			String message = bundle.getString("message");
+
+
+			idCard.setText(bundle.getString("idNumber"));
+			name.setText(bundle.getString("name"));
+			sex.setText(bundle.getString("gender"));
+			birthday.setText(bundle.getString("birthday"));
+			address.setText(bundle.getString("address"));
+			nation.setText(bundle.getString("ethnic"));
+
+
+
 			String outputFile = bundle.getString("outputFile");
 			Bitmap bitmap = BitmapFactory.decodeFile(outputFile);
 
+//			setCardInfo(message);
+			/*String infoS[] = message.split(",");
+
+			Log.i(TAG, "身份证信息: " + infoS[2].substring(infoS[2].lastIndexOf("=") ));
+			Log.i(TAG, "身份证信息: " + infoS[3].substring(infoS[3].lastIndexOf("=")));
+			Log.i(TAG, "身份证信息: " + infoS[4].substring(infoS[4].lastIndexOf("=")));
+			Log.i(TAG, "身份证信息: " + infoS[5].substring(infoS[5].lastIndexOf("=")));
+			Log.i(TAG, "身份证信息: " + infoS[6].substring(infoS[6].lastIndexOf("=")));
+			Log.i(TAG, "身份证信息: " + infoS[7].substring(infoS[7].lastIndexOf("=")));*/
+
 			picPhoto.setImageBitmap(bitmap);
-			AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-			alertDialog.setTitle(outputFile)
-					.setMessage(message)
-					.setPositiveButton("确定", null)
-					.show();
+//			AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+//			alertDialog.setTitle(outputFile)
+//					.setMessage(message)
+//					.setPositiveButton("确定", null)
+//					.show();
 		}
 	}
+
+	private void setCardInfo(String message){
+//
+//		JSONObject jsonObject;
+//		String result = new String();
+//
+//		try {
+//			jsonObject = new JSONObject(message);
+//
+//			result = jsonObject.getJSONArray("");
+//
+//		} catch (JSONException e) {
+//			Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
+//			e.printStackTrace();
+//		}
+//
+//			Log.i(TAG, "身份证信息: " + infoList.get(0));
+//		Log.i(TAG, "身份证信息: " + infoList.get(1));
+//		Log.i(TAG, "身份证信息: " + infoList.get(2));
+//
+
+
+	}
+
+
+	@OnClick(R.id.room_type)
+	public void roomTypeClick() {
+//		toast("查询用户===========：" );
+
+		currentView = "room_type";
+		BmobQuery<RoomType> query = new BmobQuery<RoomType>();
+		addSubscription(query.findObjects(new FindListener<RoomType>() {
+
+			@Override
+			public void done(List<RoomType> object, BmobException e) {
+				if(e==null){
+//					toast("查询用户成功：" + object.size());
+
+					ArrayList<HashMap<String, String>> spinnerData = new ArrayList<HashMap<String, String>>();
+
+					for (RoomType rt : object){
+						HashMap<String, String> map = new HashMap<String, String>();
+						map.put("id", rt.getObjectId());
+						map.put("name", rt.getName());
+						spinnerData.add(map);
+					}
+
+					showPopupWindow(spinnerData, roomTypeTV);
+				}else{
+					loge(e);
+				}
+			}
+
+		}));
+	}
+
+
+	@OnClick(R.id.room_num)
+	public void roomNumClick() {
+
+		if(null == roomTypeId || roomTypeId.equals("")){
+			toast("请先选择房间类型" );
+			return;
+		}
+		currentView ="room_num";
+		BmobQuery<RoomInfo> query = new BmobQuery<RoomInfo>();
+		query.addWhereEqualTo("typeId", roomTypeId);
+		addSubscription(query.findObjects(new FindListener<RoomInfo>() {
+
+			@Override
+			public void done(List<RoomInfo> object, BmobException e) {
+				if(e==null){
+
+					ArrayList<HashMap<String, String>> spinnerData = new ArrayList<HashMap<String, String>>();
+
+					for (RoomInfo rt : object){
+						HashMap<String, String> map = new HashMap<String, String>();
+						map.put("id", rt.getObjectId());
+						map.put("name", rt.getName());
+						spinnerData.add(map);
+					}
+
+					showPopupWindow(spinnerData, roomNumTV);
+				}else{
+					loge(e);
+				}
+			}
+
+		}));
+	}
+
+
+
+	private void showPopupWindow(ArrayList<HashMap<String, String>> spinnerValue, View v) {
+
+		View view = LayoutInflater.from(this).inflate(R.layout.popmenu, null);
+		TextView spinnerTitle = (TextView) view.findViewById(R.id.spinner_title);
+		Log.i(TAG, "====================" + v.getId() );
+
+		if(v.getId() == R.id.room_type){
+			spinnerTitle.setText(R.string.room_type);
+		}else{
+			spinnerTitle.setText(R.string.room_num);
+		}
+
+
+		popAdapter = new PopAdapter(this, spinnerValue, null);
+
+		//设置 listview
+		ListView popListView = (ListView)view.findViewById(R.id.listView);
+		popListView.setOnItemClickListener(popmenuItemClickListener);
+		popListView.setAdapter(popAdapter);
+		popListView.setFocusableInTouchMode(true);
+		popListView.setFocusable(true);
+
+
+//	    popupWindow = new PopupWindow(view, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		popupWindow = new PopupWindow(view, 300, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+		// 这个是为了点击“返回Back”也能使其消失，并且并不会影响你的背景
+		popupWindow.setBackgroundDrawable(new BitmapDrawable());
+
+		popupWindow.setFocusable(true);
+		// 设置允许在外点击消失
+		popupWindow.setOutsideTouchable(true);
+		//刷新状态
+		popupWindow.update();
+
+		popupWindow.showAsDropDown(v);
+	}
+
+	// 弹出菜单监听器
+	OnItemClickListener popmenuItemClickListener = new OnItemClickListener() {
+		@Override
+		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+
+
+			if(currentView.equals("room_type")){
+
+				HashMap<String, String> map = (HashMap<String, String>) popAdapter.getItem(position);
+
+				roomTypeId = map.get("id");
+				roomTypeTV.setText(map.get("name"));
+
+			}else{
+				HashMap<String, String> map = (HashMap<String, String>) popAdapter.getItem(position);
+
+
+				roomNumTV.setText(map.get("name"));
+			}
+
+
+			popupWindow.dismiss();
+		}
+	};
 	
 	private void testBmob(int pos) {
 		switch (pos) {
@@ -346,6 +572,7 @@ public class OnShoreActivity extends BaseActivity {
 			public void done(List<MyUser> object, BmobException e) {
 				if(e==null){
 					toast("查询用户成功：" + object.size());
+
 				}else{
 					loge(e);
 				}

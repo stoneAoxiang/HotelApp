@@ -1,6 +1,8 @@
 package com.grst.hotelapp.module;
 
-public class RoomInfo {
+import cn.bmob.v3.BmobObject;
+
+public class RoomInfo extends BmobObject {
 
 	private String id;
 	private String name;

@@ -134,9 +134,9 @@ public class IDCardActivity extends AppCompatActivity {
             @Override
             public void onResult(IDCardResult result) {
                 if (result != null) {
-                    Log.i(TAG, result.toString());
+                    Log.i(TAG, result.getJsonRes());
 //                    alertText("", result.toString());
-                    sendCardInfo(result.toString());
+                    sendCardInfo(result);
                 }
             }
 
@@ -147,10 +147,16 @@ public class IDCardActivity extends AppCompatActivity {
         });
     }
 
-    private void sendCardInfo(String message) {
+    private void sendCardInfo(IDCardResult message) {
 
         Intent intent = new Intent();
-        intent.putExtra("message", message);
+        intent.putExtra("name", message.getName().getWords());
+        intent.putExtra("birthday", message.getBirthday().getWords());
+        intent.putExtra("address", message.getAddress().getWords());
+        intent.putExtra("gender", message.getGender().getWords());
+        intent.putExtra("ethnic", message.getEthnic().getWords());
+        intent.putExtra("idNumber", message.getIdNumber().getWords());
+
         intent.putExtra("outputFile", outputFile);
 
         this.setResult(RESULT_OK, intent);

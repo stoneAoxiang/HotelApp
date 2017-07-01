@@ -85,4 +85,6 @@ public class BaseActivity extends Activity {
 			this.mCompositeSubscription.unsubscribe();
 		}
 	}
+
+
 }

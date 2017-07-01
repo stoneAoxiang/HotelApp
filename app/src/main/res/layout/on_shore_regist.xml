@@ -35,63 +35,99 @@
         android:layout_height="fill_parent"
         android:orientation="vertical"
         >
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:textSize="10dp"
-            android:text="报修区域选择"
+
+
+            >
+        <EditText
+            android:id="@+id/room_type"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:textSize="18sp"
+            android:focusableInTouchMode="false"
+            android:drawableRight="@mipmap/icon_public__repais_area"
+            android:text="房间类型" />
+
+
+        <EditText
+            android:id="@+id/room_num"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:textSize="18sp"
+            android:focusableInTouchMode="false"
+            android:drawableRight="@mipmap/icon_public__repais_area"
+            android:text="房间号"
+           />
+
+        <EditText
+            android:id="@+id/idCard"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:textSize="18sp"
+            android:text="身份证号码"
             />
 
         <EditText
-            android:layout_width="fill_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:textSize="10dp"
-            android:drawableRight="@mipmap/icon_public__repais_area"
-            android:text="公共区域" />
-
-        <TextView
+            android:id="@+id/name"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:text="报修类型选择"
-            android:textSize="10dp"
-
+            android:layout_height="50dp"
+            android:textSize="18sp"
+            android:text="姓名"
             />
 
         <EditText
+            android:id="@+id/sex"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:drawableRight="@mipmap/icon_public__repais_area"
-            android:text="请选择报修的类型"
-            android:textSize="10dp" />
-
-
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:padding="10dp"
-            android:text="联系人"
-            android:textSize="10dp"/>
+            android:layout_height="50dp"
+            android:textSize="18sp"
+            android:text="性别"
+            />
 
         <EditText
+            android:id="@+id/birthday"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:drawableRight="@mipmap/icon_public__repais_area"
-            android:text="请填写联系人姓名"
-            android:textSize="10dip"
-
+            android:layout_height="50dp"
+            android:textSize="18sp"
+            android:text="出生日期"
             />
+
+        <EditText
+            android:id="@+id/address"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:textSize="18sp"
+            android:text="地址"
+            />
+
+        <EditText
+            android:id="@+id/nation"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:textSize="18sp"
+            android:text="民族"
+            />
+
+        <EditText
+            android:id="@+id/isDisabled"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:textSize="18sp"
+            android:text="是否残疾"
+            />
+
+        <EditText
+            android:id="@+id/linkPhone"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:textSize="18sp"
+            android:inputType="phone"
+            android:text="联系电话"
+            />
+
 
         </LinearLayout>
 
         <Button
-            android:id="@+id/ssubmit"
+            android:id="@+id/submit"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
