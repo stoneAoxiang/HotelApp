@@ -8,6 +8,8 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.grst.hotelapp.util.ConstantValue;
+
 import cn.bmob.v3.exception.BmobException;
 import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
@@ -19,6 +21,19 @@ public class BaseActivity extends Activity {
 	protected BaseAdapter mAdapter;
 
 	private CompositeSubscription mCompositeSubscription;
+
+	/**
+	 * 当前页数据索引
+	 */
+	public int nowPage = 0;
+	/**
+	 * 每页显示数据量: 20条
+	 */
+	public int countPage = ConstantValue.PAGE_SIZE;
+	/**
+	 * 数据总页数
+	 */
+	public int totalPage = 1;
 
 	/**
 	 * 解决Subscription内存泄露问题

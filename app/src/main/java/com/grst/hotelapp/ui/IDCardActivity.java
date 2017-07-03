@@ -120,7 +120,9 @@ public class IDCardActivity extends AppCompatActivity {
             @Override
             public void onError(OCRError error) {
                 error.printStackTrace();
-                alertText("AK，SK方式获取token失败", error.getMessage());
+//                alertText("AK，SK方式获取token失败", error.getMessage());
+                Log.e(TAG, "onError: AK，SK方式获取token失败" + error.getMessage());
+                alertText("请重试", null);
             }
         }, getApplicationContext(), "IonKeNm09VV1uKfShhgwkLG5", "mBMpoFF57bPXFKSGZuePKnNG03zjV9MX");
     }

@@ -18,6 +18,7 @@
     <string name="pull_to_refresh">下拉可以刷新</string>
     <string name="release_to_refresh">释放立即刷新</string>
     <string name="refreshing">正在刷新…</string>
+    <string name="no_data">没有查询到数据</string>
 
     <string name="user_name">用户名</string>
     <string name="address">地址</string>
@@ -28,10 +29,16 @@
     <string name="register">注册</string>
     <string name="modify_password">修改密码</string>
 
-    <string name="onshore">境内旅客</string>
-    <string name="offshore">境外旅客</string>
+    <string name="onshore">入住登记</string>
+    <string name="checkOut">退房登记</string>
+    <string name="checkInQuery">入住查询</string>
+    <string name="emptyeRoomQuery">空房查询</string>
     <string name="room_type">房间类型</string>
     <string name="room_num">房间号</string>
+
+    <string name="checkIn_reg">未退房</string>
+    <string name="checkOut_reg">已退房</string>
+    <string name="checkOut_room">退房</string>
 
     <string-array name="bmob_user_list">
         <item>1. 注册用户</item>

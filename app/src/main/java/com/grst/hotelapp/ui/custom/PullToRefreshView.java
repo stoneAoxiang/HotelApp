@@ -1,4 +1,4 @@
-package com.grst.hotelapp.ui;
+package com.grst.hotelapp.ui.custom;
 
 import android.content.Context;
 import android.os.Handler;

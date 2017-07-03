@@ -6,21 +6,14 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.View.OnClickListener;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.grst.hotelapp.R;
-import com.grst.hotelapp.ui.PullToRefreshView.OnFooterRefreshListener;
-import com.grst.hotelapp.ui.PullToRefreshView.OnHeaderRefreshListener;
 
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 import butterknife.OnClick;
 
 
-public class HomeFragmentPage extends Fragment implements
-         OnHeaderRefreshListener, OnFooterRefreshListener{
+public class HomeFragmentPage extends Fragment{
     private String TAG = HomeFragmentPage.class.getCanonicalName();
 
     private View view;
@@ -101,21 +94,20 @@ public class HomeFragmentPage extends Fragment implements
         startActivity(new Intent(getActivity(), OnShoreActivity.class));
     }
 
-    @OnClick(R.id.offshore_tv)
-    public void offShoreClick() {
-        startActivity(new Intent(getActivity(), CRUDActivity.class));
+    @OnClick(R.id.checkInQuery)
+    public void checkInClick() {
+        startActivity(new Intent(getActivity(), CheckInQueryActivity.class));
     }
 
-    //下拉刷新
-    @Override
-    public void onHeaderRefresh(PullToRefreshView view) {
+    @OnClick(R.id.checkOut)
+    public void checkOutClick() {
+        startActivity(new Intent(getActivity(), CheckOutActivity.class));
     }
 
-    //上拉加载
-    @Override
-    public void onFooterRefresh(PullToRefreshView view) {
+    @OnClick(R.id.emptyeRoomQuery)
+    public void emptyeRoomQueryClick() {
+       // startActivity(new Intent(getActivity(), emptyeRoomQueryActivity.class));
     }
-
 
 
 }
