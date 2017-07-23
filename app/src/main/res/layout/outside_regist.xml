@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@android:color/white">
+
+    <LinearLayout
+        android:id="@+id/top_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="200dp"
+        android:background="@color/background_grey"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingTop="5dp"
+        android:scrollbars="vertical">
+
+        <ImageView
+            android:id="@+id/pic_photo"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="9" />
+
+
+        <ImageView
+            android:id="@+id/take_photo"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="10dp"
+            android:background="@mipmap/photo_pic" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/top_layout"
+        android:scrollbars="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <EditText
+                android:id="@+id/room_type"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:drawableRight="@mipmap/icon_public__repais_area"
+                android:focusableInTouchMode="false"
+                android:hint="房间类型"
+                android:textSize="18sp" />
+
+
+            <EditText
+                android:id="@+id/room_num"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:drawableRight="@mipmap/icon_public__repais_area"
+                android:focusableInTouchMode="false"
+                android:hint="房间号"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/credentialType"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="证件类型"
+                android:imeOptions="actionNext"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/idCard"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:imeOptions="actionNext"
+                android:hint="证件号码"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="中文名"
+                android:imeOptions="actionNext"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/country"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="国籍"
+                android:imeOptions="actionNext"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/firstName"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="英文姓"
+                android:imeOptions="actionNext"
+                android:textSize="18sp" />
+
+
+            <EditText
+                android:id="@+id/lastName"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="英文名"
+                android:imeOptions="actionNext"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/sex"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="性别"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/birthday"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:inputType="none"
+                android:hint="出生日期"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/submit"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_margin="10dp"
+                android:background="@drawable/widget_click_bg"
+                android:text="提交"
+                android:textSize="16dp"
+                android:textColor="@color/text_click_color" />
+
+
+
+
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

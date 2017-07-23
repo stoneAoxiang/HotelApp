@@ -47,11 +47,11 @@
         <activity android:name=".ui.CRUDActivity" />
         <activity android:name=".ui.QueryActivity" />
         <activity android:name=".ui.OnShoreActivity" />
+        <activity android:name=".ui.OutsideActivity" />
         <activity android:name=".ui.IDCardActivity" />
         <activity android:name=".ui.CheckInQueryActivity" />
         <activity android:name=".ui.CheckOutActivity" />
-
-
+        <activity android:name=".ui.EmptyRoomQueryActivity" />
 
     </application>
 

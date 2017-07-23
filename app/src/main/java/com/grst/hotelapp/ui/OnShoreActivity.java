@@ -42,6 +42,7 @@ import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.ProgressCallback;
+import cn.bmob.v3.listener.UpdateListener;
 import rx.Observable;
 import rx.Subscriber;
 import rx.functions.Action1;
@@ -92,6 +93,7 @@ public class OnShoreActivity extends BaseActivity {
     private PopAdapter popAdapter;
 
     private String roomTypeId;
+    private String roomId;
 
     private String currentView;
 
@@ -130,7 +132,7 @@ public class OnShoreActivity extends BaseActivity {
 
             outputFile = bundle.getString("outputFile");
 
-            Log.i(TAG, "outputFile===========: " + outputFile);
+//            Log.i(TAG, "outputFile===========: " + outputFile);
             Bitmap bitmap = BitmapFactory.decodeFile(outputFile);
 
             picPhoto.setImageBitmap(bitmap);
@@ -179,6 +181,7 @@ public class OnShoreActivity extends BaseActivity {
         currentView = "room_num";
         BmobQuery<RoomInfo> query = new BmobQuery<RoomInfo>();
         query.addWhereEqualTo("typeId", roomTypeId);
+        query.addWhereEqualTo("isEmpty", true);
         addSubscription(query.findObjects(new FindListener<RoomInfo>() {
 
             @Override
@@ -231,6 +234,7 @@ public class OnShoreActivity extends BaseActivity {
         checkIn.setName(name.getText().toString());
         checkIn.setSex(sex.getText().toString());
         checkIn.setRoomNo(roomNumTV.getText().toString());
+        checkIn.setRoomId(roomId);
         checkIn.setCredentialPic(cardPic);
 
 
@@ -253,6 +257,7 @@ public class OnShoreActivity extends BaseActivity {
             public void call(Void aVoid) {
                 url = cardPic.getUrl();
                 log("上传成功："+url+","+cardPic.getFilename());
+
             }
         }).concatMap(new Func1<Void, Observable<String>>() {//将bmobFile保存到checkIn表中
             @Override
@@ -262,7 +267,9 @@ public class OnShoreActivity extends BaseActivity {
         }).subscribe(new Subscriber<String>() {
             @Override
             public void onCompleted() {
+
                 log("--onCompleted--");
+
             }
 
             @Override
@@ -279,27 +286,33 @@ public class OnShoreActivity extends BaseActivity {
             }
         });
 
-        /*checkIn.save(new SaveListener<String>() {
 
-            @Override
-            public void done(String o, BmobException e) {
-                if(e==null){
-                    toast("创建数据成功：" + checkIn.getObjectId());
-                    Log.d("bmob", "objectId = " + checkIn.getObjectId());
-                    Log.d("bmob", "name =" + checkIn.getName());
-                    Log.d("bmob", "address =" + checkIn.getAddress());
-
-                    tipDialog(checkIn.getName(), checkIn.getRoomNo());
-
-                }else{
-                    loge(e);
-                }
-            }
-        });*/
     }
 
+
     private Observable<String> saveObservable(BmobObject obj){
+
+        Log.i(TAG, ((CheckIn)obj).getRoomNo() + "房间已入住");
+        //把房间置为“已入住”
+        setRoomCheckIn(((CheckIn)obj).getRoomId());
+
         return obj.saveObservable();
+    }
+
+    private void setRoomCheckIn(final String roomId){
+        RoomInfo roomInfo = new RoomInfo();
+        roomInfo.setEmpty(false);
+        roomInfo.update(roomId, new UpdateListener() {
+
+            @Override
+            public void done(BmobException e) {
+                if(e==null){
+                    Log.i(TAG, roomId + "房间已入住更新成功");
+                }else{
+                    Log.i(TAG,"更新失败："+e.getMessage()+","+e.getErrorCode());
+                }
+            }
+        });
     }
 
     private void tipDialog(String name, String roomNo){
@@ -418,7 +431,7 @@ public class OnShoreActivity extends BaseActivity {
             } else {
                 HashMap<String, String> map = (HashMap<String, String>) popAdapter.getItem(position);
 
-
+                roomId = map.get("id");
                 roomNumTV.setText(map.get("name"));
             }
 

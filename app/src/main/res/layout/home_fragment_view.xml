@@ -13,12 +13,18 @@
         android:id="@+id/top_layout"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:src="@mipmap/logo" />
+        android:scaleType="fitXY"
+        android:src="@mipmap/main_top" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/top_layout">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/top_layout"
+
         android:background="@color/background_grey"
         android:orientation="horizontal">
 
@@ -38,10 +44,25 @@
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:layout_gravity="center"
-                android:background="@color/newinfo_blue"
+                android:background="@drawable/blue_shape_click_bg"
                 android:gravity="center"
-                android:text="@string/onshore"
+                android:text="@string/inside"
+                android:textColor="@color/text_click_color"
                 android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/outside_tv"
+                style="@style/text_style"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="35dp"
+                android:background="@drawable/blue_shape_click_bg"
+                android:gravity="center"
+                android:text="@string/outside"
+                android:textColor="@color/text_click_color"
+                android:textSize="16sp" />
+
 
             <TextView
                 android:id="@+id/checkOut"
@@ -50,9 +71,10 @@
                 android:layout_height="120dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="35dp"
-                android:background="@color/newinfo_blue"
+                android:background="@drawable/blue_shape_click_bg"
                 android:gravity="center"
                 android:text="@string/checkOut"
+                android:textColor="@color/text_click_color"
                 android:textSize="16sp" />
 
 
@@ -74,9 +96,10 @@
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:layout_gravity="center"
-                android:background="@color/newinfo_blue"
+                android:background="@drawable/blue_shape_click_bg"
                 android:gravity="center"
                 android:text="@string/checkInQuery"
+                android:textColor="@color/text_click_color"
                 android:textSize="16sp" />
 
             <TextView
@@ -86,13 +109,30 @@
                 android:layout_height="120dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="35dp"
-                android:background="@color/newinfo_blue"
+                android:background="@drawable/blue_shape_click_bg"
                 android:gravity="center"
                 android:text="@string/emptyeRoomQuery"
+                android:textColor="@color/text_click_color"
                 android:textSize="16sp" />
+
+            <TextView
+
+                style="@style/text_style"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="35dp"
+                android:background="@drawable/blue_shape_click_bg"
+                android:gravity="center"
+                android:text="@string/emptyeRoomQuery"
+                android:textColor="@color/text_click_color"
+                android:textSize="16sp"
+                android:visibility="invisible"/>
 
         </LinearLayout>
     </LinearLayout>
+
+    </ScrollView>
 
 
 </RelativeLayout>

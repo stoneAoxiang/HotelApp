@@ -138,7 +138,7 @@ public class CheckInQueryActivity extends BaseActivity implements PullToRefreshV
 
                         refreshableView.setAllowToLoadMore(true);
 
-                        updateRentalListInfo(objects);
+                        updateCheckInListInfo(objects);
                     }else{
                         noData.setVisibility(View.VISIBLE);
                         refreshableView.setAllowToLoadMore(false);
@@ -157,9 +157,9 @@ public class CheckInQueryActivity extends BaseActivity implements PullToRefreshV
     }
 
     /**
-     * 更新房屋租凭列表UI
+     * 更新入住列表UI
      */
-    private void updateRentalListInfo(List<CheckIn> list) {
+    private void updateCheckInListInfo(List<CheckIn> list) {
 
         nowPage++;
 
@@ -238,8 +238,8 @@ public class CheckInQueryActivity extends BaseActivity implements PullToRefreshV
             helper.setText(R.id.checkInTime, "入住时间:" + item.getCheckInTime());
 
             helper.setText(R.id.name, "姓名:" + item.getName());
-            helper.setText(R.id.firstName, "英文姓:" + item.getFirstName() == null ? "" : item.getFirstName());
-            helper.setText(R.id.lastName, "英文名:" + item.getLastName() == null ? "" : item.getLastName());
+            helper.setText(R.id.firstName, "英文姓:" + item.getFirstName() == null ? "" : "英文姓:" + item.getFirstName());
+            helper.setText(R.id.lastName, "英文名:" + item.getLastName() == null ? "" : "英文名:" + item.getLastName());
             helper.setText(R.id.sex, "性别:" + item.getSex());
             helper.setText(R.id.country, "国籍:" + item.getCountry());
             helper.setText(R.id.credentialType, "证件类型:" + item.getCredentialType());

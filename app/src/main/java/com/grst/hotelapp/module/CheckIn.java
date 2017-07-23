@@ -7,7 +7,12 @@ import cn.bmob.v3.datatype.BmobFile;
 public class CheckIn extends BmobObject {
 
     //入住房号
+
     private String roomNo;
+
+    //入住房号
+    private String roomId;
+
     //证件号码
     private String idCard;
     //入住时间
@@ -190,5 +195,13 @@ public class CheckIn extends BmobObject {
 
     public void setRecordId(String recordId) {
         this.recordId = recordId;
+    }
+
+    public String getRoomId() {
+        return roomId;
+    }
+
+    public void setRoomId(String roomId) {
+        this.roomId = roomId;
     }
 }

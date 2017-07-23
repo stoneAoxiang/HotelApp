@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/white_click_bg"
+    android:orientation="horizontal"
+    android:layout_margin="5dp">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/checkIn_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/empty_room"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:drawableTop="@mipmap/empty_room"
+            android:text="ddddd"
+            android:gravity="center"
+            android:layout_margin="3dp" />
+
+        <TextView
+            android:id="@+id/no_empty_room"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:drawableTop="@mipmap/head_icon"
+            android:text="ddddd"
+            android:gravity="center"
+            android:layout_margin="3dp" />
+
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>

@@ -40,6 +40,12 @@
     <string name="checkOut_reg">已退房</string>
     <string name="checkOut_room">退房</string>
 
+    <string name="inside">境内登记</string>
+    <string name="outside">境外登记</string>
+
+    <string name="empty_room">空房</string>
+    <string name="no_empty_room">客房</string>
+
     <string-array name="bmob_user_list">
         <item>1. 注册用户</item>
         <item>2. 登陆用户</item>

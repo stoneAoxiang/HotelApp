@@ -12,12 +12,16 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.grst.hotelapp.R;
+import com.grst.hotelapp.module.BankCard;
 import com.grst.hotelapp.module.CheckIn;
+import com.grst.hotelapp.module.Person;
 import com.grst.hotelapp.ui.custom.PullToRefreshView;
+import com.grst.hotelapp.util.Tools;
 import com.joanzapata.android.BaseAdapterHelper;
 import com.joanzapata.android.QuickAdapter;
 import com.squareup.picasso.Picasso;
 
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -25,6 +29,7 @@ import butterknife.InjectView;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
+import cn.bmob.v3.listener.UpdateListener;
 
 public class CheckOutActivity extends BaseActivity implements PullToRefreshView.OnHeaderRefreshListener, PullToRefreshView.OnFooterRefreshListener {
 
@@ -143,9 +148,13 @@ public class CheckOutActivity extends BaseActivity implements PullToRefreshView.
             query.addWhereDoesNotExists("checkOutTime");
             query.order("-checkInTime");
 
+            Log.i(TAG, "未退房==============: ");
+
         }else{
             query.addWhereExists("checkOutTime");
             query.order("-checkOutTime");
+
+            Log.i(TAG, "已退房==============: ");
         }
 
         // 跳过之前页数并去掉重复数据
@@ -172,9 +181,10 @@ public class CheckOutActivity extends BaseActivity implements PullToRefreshView.
 
                         refreshableView.setAllowToLoadMore(true);
 
-                        updateRentalListInfo(objects);
+                        updateCheckOutListInfo(objects);
                     }else{
                         noData.setVisibility(View.VISIBLE);
+                        processBar.setVisibility(View.GONE);
                         refreshableView.setAllowToLoadMore(false);
                         refreshableView.onFooterRefreshComplete();
                         refreshableView.onHeaderRefreshComplete();
@@ -187,13 +197,30 @@ public class CheckOutActivity extends BaseActivity implements PullToRefreshView.
 
         });
 
+    }
 
+    private void setCheckOut(String id) {
+        CheckIn checkIn = new CheckIn();
+        checkIn.setCheckOutTime(Tools.getSystemTime());
+        checkIn.update(id, new UpdateListener() {
+
+            @Override
+            public void done(BmobException e) {
+                if(e==null){
+                    Log.i(TAG,"更新成功");
+                    initPage();
+                    getCheckInListInfo(QueryType.checkInButton);
+                }else{
+                    Log.i(TAG,"更新失败："+e.getMessage()+","+e.getErrorCode());
+                }
+            }
+        });
     }
 
     /**
-     * 更新房屋租凭列表UI
+     * 更新退房列表UI
      */
-    private void updateRentalListInfo(List<CheckIn> list) {
+    private void updateCheckOutListInfo(List<CheckIn> list) {
 
         nowPage++;
 
@@ -273,8 +300,8 @@ public class CheckOutActivity extends BaseActivity implements PullToRefreshView.
             helper.setText(R.id.checkInTime, "入住时间:" + item.getCheckInTime());
 
             helper.setText(R.id.name, "姓名:" + item.getName());
-            helper.setText(R.id.firstName, "英文姓:" + item.getFirstName() == null ? "" : item.getFirstName());
-            helper.setText(R.id.lastName, "英文名:" + item.getLastName() == null ? "" : item.getLastName());
+            helper.setText(R.id.firstName, "英文姓:" + item.getFirstName() == null ? "" : "英文姓:" + item.getFirstName());
+            helper.setText(R.id.lastName, "英文名:" + item.getLastName() == null ? "" : "英文名:" + item.getLastName());
             helper.setText(R.id.sex, "性别:" + item.getSex());
             helper.setText(R.id.country, "国籍:" + item.getCountry());
             helper.setText(R.id.credentialType, "证件类型:" + item.getCredentialType());
@@ -300,7 +327,8 @@ public class CheckOutActivity extends BaseActivity implements PullToRefreshView.
             helper.getView(R.id.checkOut_bt).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    toast(item.getObjectId());
+
+                    setCheckOut(item.getObjectId());
                 }
             });
 

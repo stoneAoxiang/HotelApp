@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/background_grey"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/top_layout"
+        layout="@layout/top_menu" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/top_menu_layout"
+        android:background="@android:color/white"
+        android:gravity="center"
+        android:padding="10dp">
+
+        <RadioGroup
+            android:id="@+id/select_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/shape_group_radio_green"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/empty_room"
+                style="@style/text_style"
+                android:layout_width="120dp"
+                android:layout_height="30dp"
+                android:background="@drawable/radio_left_bg"
+                android:button="@null"
+                android:checked="true"
+                android:gravity="center"
+                android:text="@string/empty_room"
+                android:textColor="@color/radio_button_text" />
+
+            <RadioButton
+                android:id="@+id/no_empty_room"
+                style="@style/text_style"
+                android:layout_width="120dp"
+                android:layout_height="30dp"
+                android:background="@drawable/radio_right_bg"
+                android:button="@null"
+                android:gravity="center"
+                android:text="@string/no_empty_room"
+                android:textColor="@color/radio_button_text" />
+        </RadioGroup>
+    </LinearLayout>
+
+
+    <com.grst.hotelapp.ui.custom.PullToRefreshView
+        android:id="@+id/refreshable_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"
+        android:orientation="vertical">
+
+        <com.grst.hotelapp.ui.custom.ScrollViewExtend
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <com.grst.hotelapp.ui.custom.HomeGridView
+                    android:id="@+id/content_gv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:horizontalSpacing="5.0dp"
+                    android:listSelector="#00000000"
+                    android:numColumns="3"
+                    android:verticalSpacing="2.0dp" />
+
+                <include layout="@layout/process_bar" />
+
+            </LinearLayout>
+        </com.grst.hotelapp.ui.custom.ScrollViewExtend>
+    </com.grst.hotelapp.ui.custom.PullToRefreshView>
+
+
+</LinearLayout>
