@@ -42,7 +42,6 @@
             </intent-filter>
         </activity>
 
-
         <activity android:name=".ui.UserActivity" />
         <activity android:name=".ui.CRUDActivity" />
         <activity android:name=".ui.QueryActivity" />
